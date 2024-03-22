@@ -1,8 +1,9 @@
-<?php include ('./conn/conn.php') ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Password/title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login System with Email Verification</title>
@@ -23,7 +24,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url("./asset/bg1.jpg");
+            background-image: url("https://images.unsplash.com/photo-1485470733090-0aae1788d5af?q=80&w=1517&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -31,7 +32,7 @@
         }
 
         .login-form, .registration-form {
-            backdrop-filter: blur(9px);
+            backdrop-filter: blur(100px);
             color: rgb(255, 255, 255);
             padding: 40px;
             width: 500px;
@@ -42,13 +43,6 @@
             text-decoration: underline;
             cursor: pointer;
             color: rgb(100, 100, 200);
-            margin-left: 6px;
-        }
-        .switch-form-link-register {
-            text-decoration: underline;
-            cursor: pointer;
-            color: rgb(100, 100, 200);
-            margin-left: 1px;
         }
 
         #register{
@@ -60,41 +54,9 @@
     </style>
 </head>
 <body>
-    
-    <div class="main">
+<script>
 
-        <!-- Login Area -->
-
-        <div class="login-container">
-
-        <div class="login-form" id="loginForm" style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./asset/logo.png" alt="Logo" height="100">
-    <h2 class="text-center">Log In Your Account</h2>
-    <p class="text-center">Welcome! Please Enter Your Details.</p>
-    <form action="./endpoint/login.php" method="POST">
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" class="form-control" id="username" name="username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                        <input hidden type="text" name="status"></input>
-                    </div>
-                        
-                        <p id= "forgot">Forgot Password?<a  class="switch-form-link" href="http://localhost/otp/forgot-password.php">Here.</a></p>
-                        <button type="submit" class="btn btn-secondary login-btn form-control" >Login</button>
-                        <br/>
-                        <p id="register">No Account? Register <span  class="switch-form-link-register" onclick="showRegistrationForm()">Here.</span></p>
-                    </form>
-            </div>
-
-        </div>
-
-
-
-        <!-- Registration Area -->
-        <div class="registration-form" id="registrationForm">
+<div class="registration-form" id="registrationForm">
             <h2 class="text-center">Registration Form</h2>
             <p class="text-center">Fill in you personal details.</p>
             <form action="./endpoint/add-user.php" method="POST">

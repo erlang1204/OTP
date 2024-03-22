@@ -23,7 +23,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-image: url("https://images.unsplash.com/photo-1485470733090-0aae1788d5af?q=80&w=1517&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+            background-image: url("./asset/bg1.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -52,7 +52,11 @@
 <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary" style="width: 100%;">
-        <a class="navbar-brand ml-5" href="home.php">User Registration and Login System</a>
+    <a class="navbar-brand ml-5" href="home.php">
+    <img src="./asset/logo.png" alt="Logo" height="30" class="d-inline-block align-top mr-2">
+    User Registration and Login System
+</a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -114,7 +118,7 @@
     </div>
 
 
-    <div class="content">
+    <!-- <div class="content">
         <h4>List of users</h4>
         <hr>
         <table class="table table-hover table-collapse">
@@ -130,85 +134,9 @@
                 <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
-
-                <?php 
-                
-                    $stmt = $conn->prepare("SELECT * FROM `tbl_user`");
-                    $stmt->execute();
-
-                    $result = $stmt->fetchAll();
-                    $nomor = 1;
-
-                    foreach ($result as $row) {
-                        $userID = $row['tbl_user_id'];
-                        $firstName = $row['first_name'];
-                        $lastName = $row['last_name'];
-                        $contactNumber = $row['contact_number'];
-                        $email = $row['email'];
-                        $username = $row['username'];
-                        $password = $row['password'];
-
-                    ?>
-
-                    <tr>
-                        <!-- <td id="userID-<?= $userID ?>"><?php echo $userID ?></td> -->
-                        <td id="nomor-<?= $nomor ?>"><?php echo $nomor++ ?></td>
-                        <td id="firstName-<?= $userID ?>"><?php echo $firstName ?></td>
-                        <td id="lastName-<?= $userID ?>"><?php echo $lastName ?></td>
-                        <td id="contactNumber-<?= $userID ?>"><?php echo $contactNumber ?></td>
-                        <td id="email-<?= $userID ?>"><?php echo $email ?></td>
-                        <td id="username-<?= $userID ?>"><?php echo $username ?></td>
-                        <td id="password-<?= $userID ?>"><?php echo $password ?></td>
-                        <td>
-                            <button id="editBtn" onclick="update_user(<?php echo $userID ?>)" title="Edit">&#9998;</button>
-                            <button id="deleteBtn" onclick="delete_user(<?php echo $userID ?>)">&#128465;</button>
-                        </td>
-                    </tr>    
-
-                    <?php
-                    }
-
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-    <script>
-        // Update user
-        function update_user(id) {
-            $("#updateUserModal").modal("show");
-
-            let updateUserID = $("#userID-" + id).text();
-            let updateFirstName = $("#firstName-" + id).text();
-            let updateLastName = $("#lastName-" + id).text();
-            let updateContactNumber = $("#contactNumber-" + id).text();
-            let updateEmail = $("#email-" + id).text();
-            let updateUsername = $("#username-" + id).text();
-            let updatePassword = $("#password-" + id).text();
-
-            console.log(updateFirstName);
-            console.log(updateLastName);
-
-            $("#updateUserID").val(updateUserID);
-            $("#updateFirstName").val(updateFirstName);
-            $("#updateLastName").val(updateLastName);
-            $("#updateContactNumber").val(updateContactNumber);
-            $("#updateEmail").val(updateEmail);
-            $("#updateUsername").val(updateUsername);
-            $("#updatePassword").val(updatePassword);
-
-        }
-
-        // Delete user
-        function delete_user(id) {
-            if (confirm("Do you want to delete this user?")) {
-                window.location = "./endpoint/delete-user.php?user=" + id;
-            }
-        }
+            <tbody> -->
 
 
-    </script>
 
     <!-- Bootstrap Js -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>

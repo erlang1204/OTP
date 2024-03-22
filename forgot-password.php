@@ -21,7 +21,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("https://images.unsplash.com/photo-1485470733090-0aae1788d5af?q=80&w=1517&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-image: url("./asset/bg1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -33,7 +33,7 @@ body {
     transform: translate(-50%, -50%);
 }
 .container .form{
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(9px);
             color: rgb(255, 255, 255);
             padding: 40px;
             width: 500px;
@@ -78,7 +78,16 @@ body {
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 form">
-                <form action="forgot-password.php" method="POST" autocomplete="">
+                <?php
+                    $message = $_GET['message'] ?? '';
+                    $message_info = '';
+                    if($message == 'success') {
+                        $message_info = 'Link terkirim Silakan Cek Email!';
+                    }
+                ?>
+                <p><?= $message_info ?></p>
+                
+                <form action="./endpoint/add-user.php" method="POST" autocomplete="">
                     <h2 class="text-center">Forgot Password</h2>
                     <p class="text-center">Enter your email address</p>
                     
@@ -86,7 +95,8 @@ body {
                         <input class="form-control" type="email" name="email" placeholder="Enter email address" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control button" type="submit" name="check-email" value="Continue">
+                        <!-- <input class="form-control button" type="submit" name="check-email" value="Continue"> -->
+                        <button type="submit" class="btn btn-dark login-register form-control" name="forgot">Continue</button>
                     </div>
                 </form>
             </div>

@@ -5,6 +5,41 @@
     if (isset($_SESSION['user_verification_id'])) {
         $userVerificationID = $_SESSION['user_verification_id'];
     }
+    $code = $_GET['code'] ?? '';
+    $verification_code_encode = base64_decode($code);
+
+    $array_encode = explode('|', $verification_code_encode);
+    $user_id = $array_encode[0];
+    $verification_code = $array_encode[1];
+    
+    if (!empty($verification_code)) {
+        $stmt = $conn->prepare("SELECT `tbl_user_id`, `email` FROM `tbl_user` WHERE `tbl_user_id` = :user_id and `verification_code` = :verification_code");
+        $stmt->execute(['user_id' => $user_id, 'verification_code' => $verification_code]);
+        $check_user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!empty($check_user)) {
+            // echo '<pre>';
+            // var_dump($check_user);
+            // echo '</pre>';
+
+            // echo "Kode verifikasi sesuai dengan yang ada di database.";
+        } else {
+            echo "
+            <script>
+                alert('Link Expired');
+                window.location.href = 'http://localhost/otp/forgot-password.php';
+            </script>
+            ";
+        }
+    }
+    // } else {
+    //     echo "
+    //     <script>
+    //         alert('Link yang anda klik salah!');
+    //         window.location.href = 'http://localhost/otp/index.php';
+    //     </script>
+    //     ";
+    // }
  ?>
 
 <!DOCTYPE html>
@@ -30,7 +65,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url("https://images.unsplash.com/photo-1485470733090-0aae1788d5af?q=80&w=1517&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+            background-image: url("./asset/bg1.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -38,7 +73,7 @@
         }
 
         .verification-form {
-            backdrop-filter: blur(100px);
+            backdrop-filter: blur(9px);
             color: rgb(255, 255, 255);
             padding: 40px;
             width: 500px;

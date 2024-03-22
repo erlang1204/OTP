@@ -5,6 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $status = $_POST['status'];
+    $decoded_password = base64_encode($password);
 
     $stmt = $conn->prepare("SELECT `password`,`status` FROM `tbl_user` WHERE `username` = :username");
     $stmt->bindParam(':username', $username);
@@ -17,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stored_status === 'yes')
         {
-            if (md5($password) === $stored_password) {
+            if (($decoded_password) === $stored_password) {
                 echo "
                 <script>
                     alert('Login Successfully!');
