@@ -82,7 +82,7 @@ if (isset($_POST['register'])) { //proses saat register
             echo "
             <script>
                 alert('User Already Exists');
-                window.location.href = 'http://localhost/login-system-with-email-verification/index.php';
+                window.location.href = 'http://localhost/otp/index.php';
             </script>
             ";
         }
@@ -94,15 +94,20 @@ if (isset($_POST['register'])) { //proses saat register
 
 if (isset($_POST['forgot'])) { // proses saat lupa password
     try {
-        $email = $_POST['email'];
-        $conn->beginTransaction();
-    
-        $stmt = $conn->prepare("SELECT `tbl_user_id`, `email` FROM `tbl_user` WHERE `email` = :email");
-        $stmt->execute([
-            'email' => $email,
-        ]);
-        $nameExist = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+        // ...
+        // Kode sebelumnya untuk memproses lupa password
+
+        // Setelah mengirim email verifikasi
+        $userVerificationID = $conn->lastInsertId();
+        $_SESSION['user_verification_id'] = $userVerificationID;
+
+        // Langsung arahkan ke halaman verifikasi
+        header('Location: http://localhost/otp/verification.php');
+        exit;
+    } catch (PDOException $e) {
+        $conn->rollBack();
+        echo "Error: " . $e->getMessage();
+        
         if (!empty($nameExist)) {
             $random_code = rand(100000, 999999);
             $user_id = $nameExist['tbl_user_id'] ?? '';

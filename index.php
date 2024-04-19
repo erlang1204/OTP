@@ -94,7 +94,7 @@
 
 
         <!-- Registration Area -->
-        <div class="registration-form" id="registrationForm">
+        <div class="registration-form" id="registrationForm"> 
             <h2 class="text-center">Registration Form</h2>
             <p class="text-center">Fill in you personal details.</p>
             <form action="./endpoint/add-user.php" method="POST">
@@ -128,12 +128,12 @@
                 </div>
                 <p>Already have an account? Login <span class="switch-form-link" onclick="showLoginForm()">Here.</span></p>
                 <button type="submit" class="btn btn-dark login-register form-control" name="register">Register</button>
-<!-- <input type="text" name="status"> -->
+<!- <input type="text" name="status"> 
             </form>
 
         </div>
 
-    </div>
+    </div> 
 
     <script>
         const loginForm = document.getElementById('loginForm');

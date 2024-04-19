@@ -72,6 +72,10 @@ body {
 .container .row .alert{
     font-size: 14px;
 }
+.login{
+    margin-top:10px;
+    margin-bottom :1rem;
+}
 
 </style>
 <body>
@@ -97,6 +101,7 @@ body {
                     <div class="form-group">
                         <!-- <input class="form-control button" type="submit" name="check-email" value="Continue"> -->
                         <button type="submit" class="btn btn-dark login-register form-control" name="forgot">Continue</button>
+                        <p clas="login"id= "forgot">Login Page? <a  class="switch-form-link" href="http://localhost/otp/index.php">Here.</a></p>
                     </div>
                 </form>
             </div>
