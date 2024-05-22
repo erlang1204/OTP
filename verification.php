@@ -10,11 +10,14 @@
 
         $array_encode = explode('|', $verification_code_encode);
         $user_id = $array_encode[0];
-        $verification_code = $array_encode[1];
+        $verification_code = $array_encode[0];
         
+
         if (!empty($verification_code)) {
             $stmt = $conn->prepare("SELECT `tbl_user_id`, `email` FROM `tbl_user` WHERE `tbl_user_id` = :user_id and `verification_code` = :verification_code");
             $stmt->execute(['user_id' => $user_id, 'verification_code' => $verification_code]);
+            
+
             $check_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!empty($check_user)) {
@@ -89,10 +92,10 @@
 
             <div class="verification-container">
                 <div class="verification-form" id="loginForm">
-                    <h2 class="text-center">Email Verification</h2>
-                    <p class="text-center">Please check your email for verification code.</p>
+                    <h2 class="text-center">Verification OTP</h2>
+                    <p class="text-center">Please ask the admin for a verification code.</p>
                     <form action="./endpoint/add-user.php" method="POST">
-                        <input type="text" name="user_verification_id" value="<?= $userVerificationID ?>" hidden>
+                        <!-- <input type="text" name="user_verification_id" value="<?= $userVerificationID ?>"> -->
                         <input type="number" class="form-control text-center" id="verificationCode" name="verification_code">
                         <button type="submit" class="btn btn-secondary login-btn form-control mt-4" name="verify">Verify</button>
                     </form>

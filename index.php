@@ -82,7 +82,7 @@
                         <input hidden type="text" name="status"></input>
                     </div>
                         
-                        <p id= "forgot">Forgot Password?<a  class="switch-form-link" href="http://localhost/otp/forgot-password.php">Here.</a></p>
+                        <!-- <p id= "forgot">Forgot Password?<a  class="switch-form-link" href="http://localhost/otp/forgot-password.php">Here.</a></p> -->
                         <button type="submit" class="btn btn-secondary login-btn form-control" >Login</button>
                         <br/>
                         <p id="register">No Account? Register <span  class="switch-form-link-register" onclick="showRegistrationForm()">Here.</span></p>
@@ -126,9 +126,11 @@
                     <label for="registerPassword">Password:</label>
                     <input type="password" class="form-control" id="registerPassword" name="password">
                 </div>
+                <input hidden type="text" class="form-control" name="key" id="" placeholder="Key" value="tes"><br>
+                
                 <p>Already have an account? Login <span class="switch-form-link" onclick="showLoginForm()">Here.</span></p>
                 <button type="submit" class="btn btn-dark login-register form-control" name="register">Register</button>
-<!- <input type="text" name="status"> 
+            <!- <input type="text" name="status"> 
             </form>
 
         </div>

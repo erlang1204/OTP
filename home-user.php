@@ -119,47 +119,8 @@
 
 
     <div class="content">
-        <h4>List of users</h4>
-        <hr>
-        <table class="table table-collapse">
-            <thead>
-                <tr>
-                <th scope="col">No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Contact Number</th>
-                <!-- <th scope="col">Role</th> -->
-                <th scope="col">verification code</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody> 
-            <?php
-   $sql = "SELECT * FROM tbl_user WHERE role != 'admin'";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    $no = 1;
-    foreach ($users as $user) {
-        echo "<tr>";
-echo "<td>{$no}</td>";
-echo "<td>{$user['first_name']} {$user['last_name']}</td>";
-echo "<td>{$user['email']}</td>";
-echo "<td>{$user['contact_number']}</td>";
-// echo "<td>{$user['role']}</td>";
-echo "<td>{$user['verification_code']}</td>";
-echo "<td>
-    <div style='display: flex; gap: 10px';>
-        <a href='#' style='color: #fff'>Hapus</a>
-        <a href='#' style='color: #fff'>Kirim OTP</a>
+    <h1>Welcome, <?php echo isset($_GET['first_name']) ? $_GET['first_name'] : 'lhoo'; ?>!</h1>
     </div>
-</td>";
-echo "</tr>";
-
-        $no++;
-    }
-    ?>
             <tbody>
 
 

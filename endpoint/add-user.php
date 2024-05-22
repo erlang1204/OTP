@@ -1,5 +1,8 @@
 <?php
 include('../conn/conn.php');
+include('../Aes.php');
+// include('../index.php');
+// include "AES.php"; //memasukan file AES
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -12,12 +15,28 @@ $mail = new PHPMailer(true);
 
 if (isset($_POST['register'])) { //proses saat register
     try {
+        $b = $_POST['key']; //kunci utk enkripsi
+        $a = $_POST['password']; //text yg akan di enkrip
+        $aes = new Aes($a); // pembuatan objek dari class Aes, dengan parameter kunci dekrip
+        $hasil = bin2hex($aes->encrypt($a));
+
+
+        $hasil2 = hex2bin($hasil);
+        $hasil_dekrip = $aes->decrypt($hasil2);
+        // var_dump($a,$b,$hasil,$hasil2,$hasil_dekrip);
+        // $password = $_POST['password'];
+        // $io = substr(md5('password'),0,16);
+        // $io = encrypt($password);
+        // $aes = new AES($password);
+        
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
         $contactNumber = $_POST['contact_number'];
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $pass = $hasil;
+
         $conn->beginTransaction();
     
         $stmt = $conn->prepare("SELECT `first_name`, `last_name` FROM `tbl_user` WHERE `first_name` = :first_name AND `last_name` = :last_name");
@@ -29,7 +48,7 @@ if (isset($_POST['register'])) { //proses saat register
     
         if (empty($nameExist)) {
             $verificationCode = rand(100000, 999999);
-            $enc= base64_encode($password);
+            $enc=$pass;   //diganti kriptografi
     
             $insertStmt = $conn->prepare("INSERT INTO `tbl_user` (`tbl_user_id`, `first_name`, `last_name`, `contact_number`, `email`, `username`, `password`, `verification_code`,`status`) VALUES (NULL, :first_name, :last_name, :contact_number, :email, :username, :password, :verification_code, 'yes')");
 
@@ -47,7 +66,7 @@ if (isset($_POST['register'])) { //proses saat register
             $mail->Host       = 'smtp.gmail.com'; 
             $mail->SMTPAuth   = true; 
             $mail->Username   = 'erlangbayu7@gmail.com';
-            $mail->Password   = 'hlrv hthv rwgl uaby';
+            $mail->Password   = 'hkee hclw qafm qrvs';
             $mail->SMTPSecure = 'ssl';
             $mail->Port       = 465;                                    
         
@@ -72,8 +91,8 @@ if (isset($_POST['register'])) { //proses saat register
 
             echo "
             <script>
-                alert('Check your email for verification code.');
-                window.location.href = 'http://localhost/otp/verification.php';
+                alert('Register Succesfully.');
+                window.location.href = 'http://localhost/otp/index.php';
             </script>
             ";
 
@@ -94,20 +113,15 @@ if (isset($_POST['register'])) { //proses saat register
 
 if (isset($_POST['forgot'])) { // proses saat lupa password
     try {
-        // ...
-        // Kode sebelumnya untuk memproses lupa password
-
-        // Setelah mengirim email verifikasi
-        $userVerificationID = $conn->lastInsertId();
-        $_SESSION['user_verification_id'] = $userVerificationID;
-
-        // Langsung arahkan ke halaman verifikasi
-        header('Location: http://localhost/otp/verification.php');
-        exit;
-    } catch (PDOException $e) {
-        $conn->rollBack();
-        echo "Error: " . $e->getMessage();
-        
+        $email = $_POST['email'];
+        $conn->beginTransaction();
+    
+        $stmt = $conn->prepare("SELECT `tbl_user_id`, `email` FROM `tbl_user` WHERE `email` = :email");
+        $stmt->execute([
+            'email' => $email,
+        ]);
+        $nameExist = $stmt->fetch(PDO::FETCH_ASSOC);
+    
         if (!empty($nameExist)) {
             $random_code = rand(100000, 999999);
             $user_id = $nameExist['tbl_user_id'] ?? '';
